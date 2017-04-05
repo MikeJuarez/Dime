@@ -1,10 +1,16 @@
 package com.mlapps.dime;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -13,10 +19,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+import layout.signup;
+
+import static com.mlapps.dime.R.layout.fragment_login;
+
+public class MainActivity extends FragmentActivity implements LoginFragment.OnLoginSelectedListener{
 
     private static final String TAG = "MainActivity";
-
 
     private ViewPager mViewPager;
 
@@ -28,9 +37,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        FragmentManager fm = getSupportFragmentManager();
+
+        LoginFragment newFragment = new LoginFragment();
+        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.fragment_placeholder, newFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
 
         setContentView(R.layout.activity_main);
+
         Log.d(TAG, "onCreate: Starting");
 
         mAuth = FirebaseAuth.getInstance();
@@ -49,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 // ...
             }
         };
+
+
     }
 
     @Override
@@ -81,10 +101,19 @@ public class MainActivity extends AppCompatActivity {
 
             // ...
         }
-    });
+        });
     }
 
+    public void signupPressed() {
+        FragmentManager fm = getSupportFragmentManager();
 
+        signup newFragment = new signup();
+        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
+        transaction.replace(R.id.fragment_placeholder, newFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
+    }
 
 }
