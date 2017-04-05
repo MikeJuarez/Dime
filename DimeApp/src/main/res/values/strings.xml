@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Dime</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_form">Login Form</string>
+    <string name="title_activity_login">Login</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- UI Colors -->
+    <string name="ui_textcolor_orange">#FC4A1A</string>
+    <string name="ui_textcolor_white">#DFDCE3</string>
+    <string name="ui_textcolor_blue">#4ABDAC</string>
+    <string name="ui_textcolor_yellow">#F7B733</string>
+</resources>
