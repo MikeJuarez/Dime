@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "434717160640-rk7u54cbvievt3oq4nv5e2r96qn26pli.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mlapps.dime",
+            "certificate_hash": "fa05f2ba732a491f4003796628678be715ac69ca"
+          }
+        },
+        {
           "client_id": "434717160640-tetle3vfreb0o2a223npb3ff6k3d8s3g.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -22,6 +30,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyDCg2sHtAlV1AI8XXO3mo0AeqeE8JOR-Io"
+        },
+        {
+          "current_key": "AIzaSyAgfL2b_Xb-UWlq3yjaP3cfU6dmLHCJ2_0"
         }
       ],
       "services": {
@@ -29,8 +40,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "434717160640-tetle3vfreb0o2a223npb3ff6k3d8s3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

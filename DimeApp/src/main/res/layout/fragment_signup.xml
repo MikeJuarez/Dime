@@ -92,7 +92,7 @@
                 android:drawableLeft="@drawable/passwordorange"
                 android:hint="Password"
                 android:imeOptions="actionDone"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="10dp"
                 android:paddingLeft="15dp"/>
@@ -107,10 +107,11 @@
                 android:background="@drawable/textinputborder"
                 android:hint="Re-enter Password"
                 android:imeOptions="actionDone"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingLeft="15dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:animateLayoutChanges="true"/>
 
             <Button
                 android:background="@drawable/button3d"

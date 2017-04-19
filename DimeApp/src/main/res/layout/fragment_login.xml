@@ -18,36 +18,38 @@
         android:orientation="vertical"
         android:paddingTop="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <EditText
-            android:padding="10dp"
-            android:id="@+id/txtUserPass"
-            android:background="@drawable/textinputborder"
+            android:id="@+id/txtUserName"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/textinputborder"
+            android:drawableLeft="@drawable/user1orange"
             android:hint="Email Address"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
-            android:imeOptions="actionDone"
-            android:drawableLeft="@drawable/user1orange"
-            android:layout_marginBottom="10dp"/>
+            android:padding="10dp" />
 
         <EditText
-            android:padding="10dp"
-            android:id="@+id/txtUserName"
-            android:background="@drawable/textinputborder"
+            android:id="@+id/txtUserPass"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="15dp"
+            android:background="@drawable/textinputborder"
+            android:drawableLeft="@drawable/passwordorange"
             android:hint="Password"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:imeOptions="actionDone"
-            android:drawableLeft="@drawable/passwordorange"
-            android:paddingLeft="15dp"/>
+            android:padding="10dp"
+            android:paddingLeft="15dp" />
 
         <Button
             android:background="@drawable/button3d"
@@ -86,7 +88,7 @@
                 android:textColor="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"/>
+                android:text="SIGN UP"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

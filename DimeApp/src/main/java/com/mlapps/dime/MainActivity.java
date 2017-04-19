@@ -1,16 +1,23 @@
 package com.mlapps.dime;
 
+
+import com.mlapps.dime.R;
+
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+
+
+import android.os.Bundle;
+
+
+import android.R.anim;
+
+
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,11 +26,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import layout.signup;
+import static android.R.attr.fragment;
 
-import static com.mlapps.dime.R.layout.fragment_login;
-
-public class MainActivity extends FragmentActivity implements LoginFragment.OnLoginSelectedListener{
+public class MainActivity extends FragmentActivity implements LoginFragment.loginListener, SignupFragment.signupUser {
 
     private static final String TAG = "MainActivity";
 
@@ -31,21 +36,16 @@ public class MainActivity extends FragmentActivity implements LoginFragment.OnLo
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    public String auth_failed = "Authorization Failed";
+
+    LoginFragment loginFrag = new LoginFragment();
+    SignupFragment signupFrag = new SignupFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager fm = getSupportFragmentManager();
 
-        LoginFragment newFragment = new LoginFragment();
-        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-        transaction.replace(R.id.fragment_placeholder, newFragment);
-        transaction.addToBackStack(null);
-
-        transaction.commit();
+        fragmentAdapter(loginFrag);
 
         setContentView(R.layout.activity_main);
 
@@ -64,11 +64,8 @@ public class MainActivity extends FragmentActivity implements LoginFragment.OnLo
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
-
-
     }
 
     @Override
@@ -85,34 +82,68 @@ public class MainActivity extends FragmentActivity implements LoginFragment.OnLo
         }
     }
 
-    public void createAccount(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-        @Override
-        public void onComplete(@NonNull Task<AuthResult> task) {
-            Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+    public void signupPressed() {
 
-            // If sign in fails, display a message to the user. If sign in succeeds
-            // the auth state listener will be notified and logic to handle the
-            // signed in user can be handled in the listener.
-            if (!task.isSuccessful()) {
-                Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
-            }
-
-            // ...
-        }
-        });
+        fragmentAdapter(signupFrag);
     }
 
-    public void signupPressed() {
-        FragmentManager fm = getSupportFragmentManager();
+    public void loginPressed(String email, String password) {
 
-        signup newFragment = new signup();
-        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-        transaction.replace(R.id.fragment_placeholder, newFragment);
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                            Toast.makeText(getApplicationContext(), "User was signed in successfully.", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "User was not signed in successfully.", Toast.LENGTH_SHORT).show();
+                        // ...
+                    }
+                });
+
+        Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+    }
+
+    public void signupUser(String email, String password) {
+        Toast.makeText(getApplicationContext(), "email: " + email + ", pass: " + password, Toast.LENGTH_SHORT).show();
+        createAccount(email, password);
+    }
+
+    public void createAccount(String email, String password){
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                            Toast.makeText(getApplicationContext(), "User was added successfully.", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "User not added successfully.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(!loginFrag.isVisible())
+            super.onBackPressed();
+    }
+
+
+    public void fragmentAdapter(Fragment fragment)
+    {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out, R.animator.fade_in, R.animator.fade_out);
+        transaction.replace(R.id.fragment_placeholder, fragment, fragment.getTag());
+
         transaction.addToBackStack(null);
-
         transaction.commit();
     }
 
